@@ -2,6 +2,7 @@
 
 var convertExpression = require('./convert-expression');
 var validatePattern = require('./pattern-validation');
+var tz = require('./timezone/timezone-converter');
 
 module.exports = (function(){
   function matchPattern(pattern, value){
@@ -13,6 +14,9 @@ module.exports = (function(){
   }
 
   function mustRun(task, date){
+    if(task.timezone)
+      date = tz.atTimezone(date, task.timezone);
+
     var runInSecond = matchPattern(task.expressions[0], date.getSeconds());
     var runOnMinute = matchPattern(task.expressions[1], date.getMinutes());
     var runOnHour = matchPattern(task.expressions[2], date.getHours());
@@ -34,8 +38,9 @@ module.exports = (function(){
     return runInSecond && runOnMinute && runOnHour && runOnDay && runOnMonth;
   }
 
-  function Task(pattern, execution){
+  function Task(pattern, execution, timezone){
     validatePattern(pattern);
+    this.timezone = timezone;
     this.initialPattern = pattern.split(' ');
     this.pattern = convertExpression(pattern);
     this.execution = execution;

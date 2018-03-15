@@ -14,8 +14,8 @@ module.exports = (function() {
    * @param {boolean} immediateStart - whether to start the task immediately.
    * @returns {ScheduledTask} update function.
    */
-  function createTask(expression, func, immediateStart) {
-    var task = new Task(expression, func);
+  function createTask(expression, func, immediateStart, timezone) {
+    var task = new Task(expression, func, timezone);
 
     return new ScheduledTask(task, immediateStart);
   }
