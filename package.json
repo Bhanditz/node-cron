@@ -32,5 +32,8 @@
     "istanbul": "^0.4.2",
     "mocha": "^3.0.2",
     "sinon": "^1.17.3"
+  },
+  "dependencies": {
+    "node-gmt": "^0.0.1"
   }
 }

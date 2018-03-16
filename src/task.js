@@ -2,7 +2,7 @@
 
 var convertExpression = require('./convert-expression');
 var validatePattern = require('./pattern-validation');
-var tz = require('./timezone/timezone-converter');
+var GMT = require('node-gmt');
 
 module.exports = (function(){
   function matchPattern(pattern, value){
@@ -15,7 +15,7 @@ module.exports = (function(){
 
   function mustRun(task, date){
     if(task.timezone)
-      date = tz.atTimezone(date, task.timezone);
+      date = new GMT(task.timezone).relativeDate(date);
 
     var runInSecond = matchPattern(task.expressions[0], date.getSeconds());
     var runOnMinute = matchPattern(task.expressions[1], date.getMinutes());
