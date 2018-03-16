@@ -34,6 +34,6 @@
     "sinon": "^4.1.2"
   },
   "dependencies": {
-    "node-gmt": "^0.0.1"
+    "node-gmt": "^0.0.2"
   }
 }
